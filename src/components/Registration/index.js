@@ -26,21 +26,25 @@ class Registration extends Component {
 
   componentDidMount() {
     const {topicsList} = this.props
-    const selectedOption = topicsList[0].displayText
+    const selectedOption = 'ARTS_AND_CULTURE'
     this.setState({topicsList, selectedOption})
   }
 
   onSubmitForm = (event, updateName, updateTopic) => {
     event.preventDefault()
-    const {name, selectedOption} = this.state
+    const {name, selectedOption, topicsList} = this.state
 
     if (name.trim() === '') {
       this.setState({errorMsg: 'Please enter your name'})
     }
 
+    const findingTopic = topicsList.find(topic => topic.id === selectedOption)
+
+    const requiredTopic = findingTopic.displayText
+
     if (name) {
       updateName(name)
-      updateTopic(selectedOption)
+      updateTopic(requiredTopic)
       const {history} = this.props
       history.replace('/')
     }
@@ -80,11 +84,12 @@ class Registration extends Component {
         <br />
         <DropdownContainer
           as="select"
+          id="topics"
           value={selectedOption}
           onChange={this.onChangeSelectOption}
         >
           {topicsList.map(topic => (
-            <TopicOption key={topic.id} value={topic.displayText}>
+            <TopicOption key={topic.id} value={topic.id}>
               {topic.displayText}
             </TopicOption>
           ))}

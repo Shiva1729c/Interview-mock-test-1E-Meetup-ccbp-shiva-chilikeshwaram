@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import UserDetailsContext from '../../context/UserDetailsContext'
 import Header from '../Header'
 
@@ -12,18 +13,13 @@ import {
 } from './styledComponents'
 
 class Home extends Component {
-  navigateToRegistration = () => {
-    const {history} = this.props
-    history.replace('/register')
-  }
-
   renderHomeContent = () => (
     <>
       <HomeHeading>Welcome to Meetup</HomeHeading>
       <HomeDescription>Please register for the topic</HomeDescription>
-      <RegisterButton type="button" onClick={this.navigateToRegistration}>
-        Register
-      </RegisterButton>
+      <Link to="/register">
+        <RegisterButton type="button">Register</RegisterButton>
+      </Link>
       <HomeImage
         src="https://assets.ccbp.in/frontend/react-js/meetup/meetup-img.png"
         alt="meetup"
